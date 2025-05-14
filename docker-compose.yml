@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    environment:
+      - DB_PATH=/data/osint.db        
+    volumes:
+      - osint-data:/data
+    expose:
+      - "8080"
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80"                   
+    depends_on:
+      - backend
+
+volumes:
+  osint-data:
