@@ -1,0 +1,10 @@
+# Gradle
+**/build/
+**/.gradle/
+# IntelliJ
+.idea/
+*.iml
+# Docker
+docker-compose.override.yml
+# Node
+frontend/node_modules/
