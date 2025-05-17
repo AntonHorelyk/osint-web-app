@@ -31,10 +31,7 @@ fun Application.module() {
         jackson()
     }
     install(CORS) {
-        // Replace anyHost() with the appropriate method
         allowHost("*")
-        // Or use more specific settings:
-        // allowHost("localhost:3000", "example.com")
         allowMethod(HttpMethod.Post)
         allowHeader(HttpHeaders.ContentType)
     }

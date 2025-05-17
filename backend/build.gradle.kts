@@ -20,10 +20,10 @@ dependencies {
     implementation("io.ktor:ktor-server-netty:$ktorVersion")
     implementation("io.ktor:ktor-server-content-negotiation:$ktorVersion")
     implementation("io.ktor:ktor-serialization-jackson:$ktorVersion")
-    implementation("io.ktor:ktor-server-cors:$ktorVersion")          // <- вот эта строка!
+    implementation("io.ktor:ktor-server-cors:$ktorVersion")        
     implementation("io.ktor:ktor-server-status-pages:$ktorVersion")
 
-    // Koin (обратите внимание — именно io.insert-koin)
+    // Koin ( io.insert-koin)
     implementation("io.insert-koin:koin-ktor:$koinVersion")
     implementation("io.insert-koin:koin-core:$koinVersion")
     implementation("io.insert-koin:koin-logger-slf4j:$koinVersion")
@@ -35,11 +35,8 @@ dependencies {
     implementation("com.zaxxer:HikariCP:5.0.1")
     implementation("org.xerial:sqlite-jdbc:3.42.0.0")
 
-    // Логирование, тесты…
-
     implementation("ch.qos.logback:logback-classic:1.5.6")
 
-    // Тесты
     testImplementation(kotlin("test"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
 }

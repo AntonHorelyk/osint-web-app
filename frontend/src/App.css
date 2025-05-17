@@ -1,42 +1,105 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+body {
+  display: flex;
+  justify-content: center;
+}
+:root {
+  --mint: #98FFB3;
+  --mint-light: #CFFFE1;
+  --mint-dark: #76C99F;
+  --bg-dark: #1F1F1F;
+  --card-bg: #2B2B2B;
+  --text-light: #CCCCCC;
+  --text-on-mint: #2B2B2B;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.search-bar{
+margin: 15px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.app-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 2rem 1rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.cards-grid {
+  width: 100%;
+  gap: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
 }
 
 .card {
-  padding: 2em;
+  background: var(--card-bg);
+  border: 2px solid var(--mint);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  transition: box-shadow .2s ease;
+}
+.card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+.card h2 {
+  margin-bottom: .5rem;
+  color: var(--mint);
+}
+.card p {
+  color: var(--text-light);
+  margin: .25rem 0;
+  font-size: .9rem;
+}
+.card .count {
+  margin-top: .75rem;
+  font-weight: 600;
+  color: #FFF;
 }
 
-.read-the-docs {
-  color: #888;
+.btn {
+  cursor: pointer;
+  font-weight: 500;
+  border: none;
+  border-radius: .5rem;
+  padding: .5rem 1rem;
+  transition: background .2s ease;
+}
+.btn-primary {
+  background: var(--mint-dark);
+  color: var(--text-on-mint);
+}
+.btn-primary:hover:not(:disabled) {
+  background: var(--mint);
+}
+.btn-primary:disabled {
+  background: var(--mint-light);
+  cursor: not-allowed;
+}
+.btn-secondary {
+  background: var(--mint-light);
+  color: var(--text-on-mint);
+}
+.btn-close {
+  background: #D9534F;
+  color: #FFF;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 50;
+}
+.modal {
+  background: #fff;
+  border-radius: 2rem;
+  width: 95%;
+  padding: 1.5rem;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  max-height: 80vh;
+  overflow-y: auto;
+  color: #1f2414; 
 }

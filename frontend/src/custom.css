@@ -1,0 +1,14 @@
+/* src/custom.css */
+.card {
+    border: 2px solid #b2d3c2; /* ваш второй цвет */
+    border-radius: 1rem;
+    padding: 1rem;
+    background: #fff;
+    transition: box-shadow .2s;
+  }
+  .card:hover {
+    box-shadow: 0 4px 10px rgba(0,0,0,.1);
+  }
+  .primary-text {
+    color: #1f2937; /* тёмный цвет для текста */
+  }
