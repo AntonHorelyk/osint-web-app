@@ -3,20 +3,14 @@ package com.example.osint
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
-
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.serialization.jackson.*
-
 import io.ktor.server.plugins.cors.routing.*
 import io.ktor.http.*
-
 import io.ktor.server.plugins.statuspages.*
-
 import io.ktor.server.request.*
 import io.ktor.server.response.*
-
 import io.ktor.server.routing.*
-
 import org.koin.ktor.plugin.Koin
 import org.koin.ktor.ext.inject
 import com.example.osint.di.appModule
@@ -24,12 +18,8 @@ import com.example.osint.service.ScanService
 import com.example.osint.db.DatabaseFactory
 
 fun Application.module() {
-    install(Koin) {
-        modules(appModule)
-    }
-    install(ContentNegotiation) {
-        jackson()
-    }
+    install(Koin) { modules(appModule) }
+    install(ContentNegotiation) { jackson() }
     install(CORS) {
         allowHost("*")
         allowMethod(HttpMethod.Post)
@@ -44,8 +34,9 @@ fun Application.module() {
         }
     }
 
-    val dbFile = System.getenv("DB_PATH") ?: "/data/osint.db"
-    DatabaseFactory.init("jdbc:sqlite:$dbFile")
+    // default to in-memory for tests if DB_PATH not set
+    val dbPath = System.getenv("DB_PATH") ?: ":memory:"
+    DatabaseFactory.init("jdbc:sqlite:$dbPath")
 
     val scanService by inject<ScanService>()
 
@@ -62,9 +53,8 @@ fun Application.module() {
                 val raw = payload["domain"] ?: throw IllegalArgumentException("Domain is required")
                 val domain = runCatching { java.net.URI(raw).host }
                     .getOrNull()?.takeIf { it.isNotBlank() } ?: raw
-                require(Regex("^(?:[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?\\.)+[A-Za-z]{2,}\$").matches(domain)) {
-                    "Invalid domain name: $domain"
-                }
+                require(Regex("^(?:[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?\\.)+[A-Za-z]{2,}\$")
+                    .matches(domain)) { "Invalid domain name: $domain" }
                 call.respond(scanService.scan(domain))
             }
             get("/scans/{id}") {

@@ -8,18 +8,18 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import com.example.osint.repository.Tables
 
 object DatabaseFactory {
-  fun init(dbUrl: String) {
-    val config = HikariConfig().apply {
-      jdbcUrl = dbUrl
-      driverClassName = "org.sqlite.JDBC"
-      maximumPoolSize = 3
-      isAutoCommit = false
-      transactionIsolation = "TRANSACTION_SERIALIZABLE"
+    fun init(dbUrl: String) {
+        val config = HikariConfig().apply {
+            jdbcUrl = dbUrl
+            driverClassName = "org.sqlite.JDBC"
+            maximumPoolSize = 3
+            isAutoCommit = false
+            transactionIsolation = "TRANSACTION_SERIALIZABLE"
+        }
+        val ds = HikariDataSource(config)
+        Database.connect(ds)
+        transaction {
+            SchemaUtils.createMissingTablesAndColumns(Tables.Scans, Tables.Artifacts)
+        }
     }
-    val ds = HikariDataSource(config)
-    Database.connect(ds)
-    transaction {
-      SchemaUtils.createMissingTablesAndColumns(Tables.Scans, Tables.Artifacts)
-    }
-  }
 }
