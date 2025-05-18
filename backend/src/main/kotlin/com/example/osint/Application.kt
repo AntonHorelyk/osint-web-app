@@ -34,7 +34,6 @@ fun Application.module() {
         }
     }
 
-    // default to in-memory for tests if DB_PATH not set
     val dbPath = System.getenv("DB_PATH") ?: ":memory:"
     DatabaseFactory.init("jdbc:sqlite:$dbPath")
 
